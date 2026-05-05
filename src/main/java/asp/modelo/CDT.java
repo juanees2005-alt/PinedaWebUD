@@ -1,4 +1,4 @@
-package asp.modelo;
+package asp.modelo; // v1
 
 // Autor: Juan Esteban Pineda Gonzalez
 // Clase DTO que representa un CDT (Certificado de Depósito a Término).

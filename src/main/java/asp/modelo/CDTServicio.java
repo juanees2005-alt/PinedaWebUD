@@ -1,4 +1,4 @@
-package asp.modelo;
+package asp.modelo; // v1
 
 // Autor: Juan Esteban Pineda Gonzalez
 // Clase de servicio con la lógica de negocio del simulador CDT.
