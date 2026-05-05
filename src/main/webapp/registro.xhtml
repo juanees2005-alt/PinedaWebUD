@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Autor: Juan Esteban Pineda Gonzalez -->
+<!-- Vista de registro de aspirante universitario con validaciones en todos los campos -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Registro de Aspirante - PinedaWebUD</title>
+    <h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+
+<h:body>
+
+    <!-- Barra de navegación -->
+    <div class="navbar-ud">
+        <a href="index.xhtml" class="brand">🎓 PinedaWebUD</a>
+        <div class="nav-links">
+            <a href="index.xhtml">Inicio</a>
+            <a href="registro.xhtml">Registro Aspirante</a>
+            <a href="admin.xhtml">Administrador</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="card-form">
+            <h2>📝 Formulario de Registro — Aspirante Universitario</h2>
+
+            <h:form id="regForm">
+
+                <!-- Número de identificación -->
+                <div class="form-group">
+                    <h:outputLabel for="id_p" value="Número de Identificación *" />
+                    <h:inputText id="id_p" value="#{asp.dto.id_p}"
+                        required="true"
+                        requiredMessage="El número de identificación es obligatorio."
+                        converterMessage="Ingrese solo números en la identificación."
+                        validatorMessage="La identificación debe tener entre 6 y 12 dígitos.">
+                        <f:validateLongRange minimum="100000" maximum="999999999999" />
+                    </h:inputText>
+                    <h:message for="id_p" styleClass="error-msg" />
+                </div>
+
+                <!-- Nombres -->
+                <div class="form-group">
+                    <h:outputLabel for="nombres" value="Nombres *" />
+                    <h:inputText id="nombres" value="#{asp.dto.nombres}"
+                        required="true"
+                        requiredMessage="Los nombres son obligatorios."
+                        validatorMessage="Los nombres deben tener entre 2 y 60 caracteres.">
+                        <f:validateLength minimum="2" maximum="60" />
+                    </h:inputText>
+                    <h:message for="nombres" styleClass="error-msg" />
+                </div>
+
+                <!-- Apellidos -->
+                <div class="form-group">
+                    <h:outputLabel for="apellidos" value="Apellidos *" />
+                    <h:inputText id="apellidos" value="#{asp.dto.apellidos}"
+                        required="true"
+                        requiredMessage="Los apellidos son obligatorios."
+                        validatorMessage="Los apellidos deben tener entre 2 y 60 caracteres.">
+                        <f:validateLength minimum="2" maximum="60" />
+                    </h:inputText>
+                    <h:message for="apellidos" styleClass="error-msg" />
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="form-group">
+                    <h:outputLabel for="correo" value="Correo Electrónico *" />
+                    <h:inputText id="correo" value="#{asp.dto.correo}"
+                        required="true"
+                        requiredMessage="El correo electrónico es obligatorio."
+                        validatorMessage="Ingrese un correo válido (ejemplo: usuario@dominio.com).">
+                        <f:validateRegex pattern="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" />
+                    </h:inputText>
+                    <h:message for="correo" styleClass="error-msg" />
+                </div>
+
+                <!-- Teléfono -->
+                <div class="form-group">
+                    <h:outputLabel for="telefono" value="Teléfono *" />
+                    <h:inputText id="telefono" value="#{asp.dto.telefono}"
+                        required="true"
+                        requiredMessage="El teléfono es obligatorio."
+                        validatorMessage="El teléfono debe tener entre 7 y 15 dígitos numéricos.">
+                        <f:validateRegex pattern="^[0-9]{7,15}$" />
+                    </h:inputText>
+                    <h:message for="telefono" styleClass="error-msg" />
+                </div>
+
+                <!-- Programa académico -->
+                <div class="form-group">
+                    <h:outputLabel for="pro_aca" value="Programa Académico de Interés *" />
+                    <h:selectOneMenu id="pro_aca" value="#{asp.idxPrograma}"
+                        required="true"
+                        requiredMessage="Debe seleccionar un programa académico.">
+                        <f:selectItem itemValue="-1" itemLabel="-- Seleccione un programa --"
+                            noSelectionOption="true" />
+                        <f:selectItems value="#{asp.listaPa}" var="p"
+                            itemValue="#{asp.listaPa.indexOf(p)}"
+                            itemLabel="#{p.nombre_prog}" />
+                    </h:selectOneMenu>
+                    <h:message for="pro_aca" styleClass="error-msg" />
+                </div>
+
+                <!-- Mensaje de error general de lógica de negocio -->
+                <h:messages globalOnly="true" styleClass="error-msg"
+                    style="display:block; margin-bottom:14px;" />
+
+                <!-- Botones -->
+                <div style="margin-top: 24px;">
+                    <h:commandButton value="✔ Registrar Aspirante"
+                        action="#{asp.registrar}"
+                        styleClass="btn-primary-ud">
+                        <f:ajax execute="@form" render="@form" />
+                    </h:commandButton>
+                    <h:commandButton value="✖ Limpiar"
+                        action="#{asp.limpiar}"
+                        styleClass="btn-secondary-ud"
+                        immediate="true">
+                        <f:ajax execute="@this" render="@form" />
+                    </h:commandButton>
+                </div>
+
+            </h:form>
+        </div>
+    </div>
+
+    <!-- Footer requerido por el enunciado -->
+    <div class="footer-ud">
+        <strong>Juan Esteban Pineda Gonzalez</strong> |
+        Programación Web | Grupo 1 |
+        Universidad Distrital Francisco José de Caldas | 2026
+    </div>
+
+</h:body>
+</html>

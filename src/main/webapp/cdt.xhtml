@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Autor: Juan Esteban Pineda Gonzalez -->
+<!-- Vista del Simulador de CDT con validaciones y presentación -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Simulador CDT - PinedaWebUD</title>
+    <h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+
+<h:body>
+
+    <!-- Barra de navegación -->
+    <div class="navbar-ud">
+        <a href="index.xhtml" class="brand">🎓 PinedaWebUD</a>
+        <div class="nav-links">
+            <a href="index.xhtml">Inicio</a>
+            <a href="registro.xhtml">Registro Aspirante</a>
+            <a href="admin.xhtml">Administrador</a>
+            <a href="cdt.xhtml" style="font-weight:700;">💰 Simulador CDT</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+
+        <!-- ── Formulario CDT ── -->
+        <div class="card-form">
+            <h2>💰 Simulador de CDT</h2>
+            <p style="color:#64748b; margin-bottom:24px;">
+                Calcula el rendimiento de tu Certificado de Depósito a Término
+                usando interés simple y retención en la fuente colombiana (7% si
+                intereses &gt; $1.000.000).
+            </p>
+
+            <h:form id="cdtForm">
+
+                <!-- Capital -->
+                <div class="form-group">
+                    <h:outputLabel for="capital" value="Capital invertido (COP) *" />
+                    <h:inputText id="capital" value="#{cdtBean.dto.capital}"
+                        required="true"
+                        requiredMessage="El capital es obligatorio."
+                        converterMessage="Ingrese un valor numérico (sin puntos ni comas)."
+                        validatorMessage="El capital mínimo es $100.000 COP.">
+                        <f:validateDoubleRange minimum="100000" maximum="9999999999" />
+                    </h:inputText>
+                    <h:message for="capital" styleClass="error-msg" />
+                </div>
+
+                <!-- Tasa anual -->
+                <div class="form-group">
+                    <h:outputLabel for="tasa" value="Tasa de interés anual (%) *" />
+                    <h:inputText id="tasa" value="#{cdtBean.dto.tasaAnual}"
+                        required="true"
+                        requiredMessage="La tasa anual es obligatoria."
+                        converterMessage="Ingrese la tasa como número decimal (ej: 8.5)."
+                        validatorMessage="La tasa debe estar entre 0,1% y 30%.">
+                        <f:validateDoubleRange minimum="0.1" maximum="30" />
+                    </h:inputText>
+                    <h:message for="tasa" styleClass="error-msg" />
+                </div>
+
+                <!-- Plazo -->
+                <div class="form-group">
+                    <h:outputLabel for="plazo" value="Plazo (días) *" />
+                    <h:inputText id="plazo" value="#{cdtBean.dto.plazo}"
+                        required="true"
+                        requiredMessage="El plazo es obligatorio."
+                        converterMessage="Ingrese el plazo en días (número entero)."
+                        validatorMessage="El plazo debe estar entre 30 y 1800 días.">
+                        <f:validateLongRange minimum="30" maximum="1800" />
+                    </h:inputText>
+                    <h:message for="plazo" styleClass="error-msg" />
+                </div>
+
+                <!-- Mensajes globales -->
+                <h:messages globalOnly="true" styleClass="error-msg"
+                    style="display:block; margin-bottom:14px;" />
+
+                <!-- Botones -->
+                <div style="margin-top:24px;">
+                    <h:commandButton value="📊 Calcular CDT"
+                        action="#{cdtBean.calcular}"
+                        styleClass="btn-primary-ud">
+                        <f:ajax execute="@form" render="@form" />
+                    </h:commandButton>
+                    <h:commandButton value="✖ Limpiar"
+                        action="#{cdtBean.limpiar}"
+                        styleClass="btn-secondary-ud"
+                        immediate="true">
+                        <f:ajax execute="@this" render="@form" />
+                    </h:commandButton>
+                </div>
+
+                <!-- ── Resultado del cálculo ── -->
+                <h:panelGroup rendered="#{cdtBean.calculado}">
+                    <div class="cdt-resultado">
+                        <h3>📈 Resultado de la Simulación</h3>
+                        <table class="tabla-admin">
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Valor (COP)</th>
+                            </tr>
+                            <tr>
+                                <td>Capital invertido</td>
+                                <td>
+                                    <h:outputText value="#{cdtBean.resultado.capital}">
+                                        <f:convertNumber type="currency" currencySymbol="$"
+                                            groupingUsed="true" minFractionDigits="0" maxFractionDigits="2" locale="es_CO"/>
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tasa anual</td>
+                                <td><h:outputText value="#{cdtBean.resultado.tasaAnual}" /> %</td>
+                            </tr>
+                            <tr>
+                                <td>Plazo</td>
+                                <td><h:outputText value="#{cdtBean.resultado.plazo}" /> días</td>
+                            </tr>
+                            <tr class="fila-destacada">
+                                <td>Interés bruto</td>
+                                <td>
+                                    <h:outputText value="#{cdtBean.resultado.interesBruto}">
+                                        <f:convertNumber type="currency" currencySymbol="$"
+                                            groupingUsed="true" minFractionDigits="2" maxFractionDigits="2" locale="es_CO"/>
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Retención en la fuente (7%)</td>
+                                <td>
+                                    <h:outputText value="#{cdtBean.resultado.retencion}">
+                                        <f:convertNumber type="currency" currencySymbol="$"
+                                            groupingUsed="true" minFractionDigits="2" maxFractionDigits="2" locale="es_CO"/>
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr class="fila-destacada">
+                                <td><strong>Interés neto a recibir</strong></td>
+                                <td>
+                                    <h:outputText value="#{cdtBean.resultado.interesNeto}">
+                                        <f:convertNumber type="currency" currencySymbol="$"
+                                            groupingUsed="true" minFractionDigits="2" maxFractionDigits="2" locale="es_CO"/>
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr style="background:#0f766e; color:white;">
+                                <td><strong>💵 Total a recibir al vencimiento</strong></td>
+                                <td>
+                                    <strong>
+                                    <h:outputText value="#{cdtBean.resultado.totalRecibido}">
+                                        <f:convertNumber type="currency" currencySymbol="$"
+                                            groupingUsed="true" minFractionDigits="2" maxFractionDigits="2" locale="es_CO"/>
+                                    </h:outputText>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </h:panelGroup>
+
+            </h:form>
+        </div>
+
+        <!-- ── Historial de simulaciones ── -->
+        <h:panelGroup rendered="#{not empty cdtBean.historial}">
+            <div class="card-form" style="margin-top:32px;">
+                <h3>📋 Historial de simulaciones (sesión actual)</h3>
+                <table class="tabla-admin">
+                    <tr>
+                        <th>Capital</th>
+                        <th>Tasa</th>
+                        <th>Días</th>
+                        <th>Interés neto</th>
+                        <th>Total</th>
+                    </tr>
+                    <h:dataTable value="#{cdtBean.historial}" var="h">
+                        <h:column>
+                            <h:outputText value="#{h.capital}">
+                                <f:convertNumber type="currency" currencySymbol="$" groupingUsed="true" maxFractionDigits="0" locale="es_CO"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column><h:outputText value="#{h.tasaAnual}" /> %</h:column>
+                        <h:column><h:outputText value="#{h.plazo}" /></h:column>
+                        <h:column>
+                            <h:outputText value="#{h.interesNeto}">
+                                <f:convertNumber type="currency" currencySymbol="$" groupingUsed="true" maxFractionDigits="2" locale="es_CO"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{h.totalRecibido}">
+                                <f:convertNumber type="currency" currencySymbol="$" groupingUsed="true" maxFractionDigits="2" locale="es_CO"/>
+                            </h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                </table>
+            </div>
+        </h:panelGroup>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-ud">
+        <strong>Juan Esteban Pineda Gonzalez</strong> |
+        Programación Web | Grupo 1 |
+        Universidad Distrital Francisco José de Caldas | 2026
+    </div>
+
+</h:body>
+</html>

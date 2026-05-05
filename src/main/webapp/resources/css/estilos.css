@@ -1,0 +1,265 @@
+/* Autor: Juan Esteban Pineda Gonzalez - Estilos personalizados PinedaWebUD */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Navbar ── */
+.navbar-ud {
+    background: linear-gradient(135deg, #003366 0%, #005bab 100%);
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.navbar-ud .brand {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+.navbar-ud .nav-links a {
+    color: #cce0ff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+.navbar-ud .nav-links a:hover {
+    color: #ffffff;
+}
+
+/* ── Contenedor principal ── */
+.main-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ── Tarjeta de formulario ── */
+.card-form {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 83, 171, 0.12);
+    padding: 36px 40px;
+    margin-bottom: 30px;
+}
+.card-form h2 {
+    color: #003366;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    border-bottom: 3px solid #005bab;
+    padding-bottom: 10px;
+}
+
+/* ── Grupos de campo ── */
+.form-group {
+    margin-bottom: 18px;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+}
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #005bab;
+    box-shadow: 0 0 0 3px rgba(0, 91, 171, 0.15);
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* ── Mensajes de error JSF ── */
+.error-msg {
+    color: #dc2626;
+    font-size: 0.82rem;
+    margin-top: 4px;
+    display: block;
+}
+
+/* ── Botones ── */
+.btn-primary-ud {
+    background: linear-gradient(135deg, #005bab, #003366);
+    color: #ffffff;
+    border: none;
+    padding: 11px 32px;
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-right: 10px;
+}
+.btn-primary-ud:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+.btn-secondary-ud {
+    background: #e2e8f0;
+    color: #334155;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-secondary-ud:hover {
+    background: #cbd5e1;
+}
+
+/* ── Tabla de aspirantes ── */
+.tabla-aspirantes {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 10px;
+}
+.tabla-aspirantes thead tr {
+    background: linear-gradient(135deg, #003366, #005bab);
+    color: #ffffff;
+}
+.tabla-aspirantes thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+.tabla-aspirantes tbody tr:nth-child(even) {
+    background-color: #f0f7ff;
+}
+.tabla-aspirantes tbody tr:hover {
+    background-color: #dbeafe;
+}
+.tabla-aspirantes tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+}
+
+/* ── Mensaje de lista vacía ── */
+.empty-msg {
+    text-align: center;
+    padding: 30px;
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+/* ── Tarjetas de la página de inicio ── */
+.home-cards {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.home-card {
+    flex: 1;
+    min-width: 220px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,83,171,0.10);
+    padding: 30px 28px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-top: 4px solid #005bab;
+}
+.home-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,83,171,0.18);
+}
+.home-card .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 14px;
+}
+.home-card h3 {
+    color: #003366;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+}
+.home-card p {
+    color: #64748b;
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+/* ── Badge contador ── */
+.badge-count {
+    display: inline-block;
+    background: #005bab;
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 0.82rem;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* ── Footer ── */
+.footer-ud {
+    background: #003366;
+    color: #a8c4e0;
+    text-align: center;
+    padding: 18px;
+    font-size: 0.82rem;
+    margin-top: 60px;
+}
+.footer-ud strong {
+    color: #ffffff;
+}
+
+/* ── Simulador CDT ── */
+.cdt-resultado {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 2px solid #e2e8f0;
+}
+.cdt-resultado h3 {
+    color: #003366;
+    margin-bottom: 16px;
+}
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+.tabla-admin th {
+    background: linear-gradient(135deg, #003366, #005bab);
+    color: #fff;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+}
+.tabla-admin td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+}
+.tabla-admin tr:nth-child(even) { background-color: #f0f7ff; }
+.tabla-admin tr:hover { background-color: #dbeafe; }
+.fila-destacada td {
+    background-color: #ecfdf5 !important;
+    color: #065f46 !important;
+    font-weight: 600;
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Autor: Juan Esteban Pineda Gonzalez -->
+<!-- Vista Administrador: listado completo de aspirantes registrados en forma de tabla -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Administrador - PinedaWebUD</title>
+    <h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+
+<h:body>
+
+    <!-- Barra de navegación -->
+    <div class="navbar-ud">
+        <a href="index.xhtml" class="brand">🎓 PinedaWebUD</a>
+        <div class="nav-links">
+            <a href="index.xhtml">Inicio</a>
+            <a href="registro.xhtml">Registro Aspirante</a>
+            <a href="admin.xhtml">Administrador</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="card-form">
+
+            <h2>
+                📋 Listado de Aspirantes Registrados
+                <h:panelGroup rendered="#{not asp.listaAs.isEmpty()}">
+                    <span class="badge-count">
+                        <h:outputText value="#{asp.listaAs.size()}" />
+                    </span>
+                </h:panelGroup>
+            </h2>
+
+            <!-- Tabla de aspirantes — visible solo si hay registros -->
+            <h:panelGroup rendered="#{not asp.listaAs.isEmpty()}">
+                <h:dataTable value="#{asp.listaAs}" var="aspirante"
+                    styleClass="tabla-aspirantes">
+
+                    <h:column>
+                        <f:facet name="header">N°</f:facet>
+                        <h:outputText value="#{asp.listaAs.indexOf(aspirante) + 1}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Identificación</f:facet>
+                        <h:outputText value="#{aspirante.id_p}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nombres</f:facet>
+                        <h:outputText value="#{aspirante.nombres}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Apellidos</f:facet>
+                        <h:outputText value="#{aspirante.apellidos}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Correo</f:facet>
+                        <h:outputText value="#{aspirante.correo}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Teléfono</f:facet>
+                        <h:outputText value="#{aspirante.telefono}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Programa Académico</f:facet>
+                        <h:outputText value="#{aspirante.pro_acad.nombre_prog}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Fecha Registro</f:facet>
+                        <h:outputText value="#{aspirante.fecha_reg}" />
+                    </h:column>
+
+                </h:dataTable>
+            </h:panelGroup>
+
+            <!-- Mensaje cuando la lista está vacía -->
+            <h:panelGroup rendered="#{asp.listaAs.isEmpty()}">
+                <div class="empty-msg">
+                    <p>📭 No hay aspirantes registrados aún.</p>
+                    <p><a href="registro.xhtml" style="color:#005bab;">Ir al formulario de registro →</a></p>
+                </div>
+            </h:panelGroup>
+
+        </div>
+    </div>
+
+    <!-- Footer requerido por el enunciado -->
+    <div class="footer-ud">
+        <strong>Juan Esteban Pineda Gonzalez</strong> |
+        Programación Web | Grupo 1 |
+        Universidad Distrital Francisco José de Caldas | 2026
+    </div>
+
+</h:body>
+</html>
