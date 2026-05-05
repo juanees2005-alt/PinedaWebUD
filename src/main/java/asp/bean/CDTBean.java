@@ -1,4 +1,4 @@
-package asp.bean;
+package asp.bean; // v1
 
 // Autor: Juan Esteban Pineda Gonzalez
 // Bean JSF que actúa como controlador del simulador de CDT.
